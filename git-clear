@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# append arguments to `git branch $BRANCH` for all branches with missing upstreams
+# list those branches if no arguments given
+if [[ -z "$1" ]]; then flag="-vv --list"; else flag="$1"; fi
+git branch -vv | while read line; do 
+  [[ $(echo $line | cut -d" " -f4) == 'gone]' ]] && echo $line | cut -d" " -f1 | xargs git branch $flag
+done;
+
