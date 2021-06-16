@@ -2,13 +2,8 @@
 
 # open a browser-based PR for the current branch at the current repo
 # assumes github-style URL for creating a PR.
-
-REMOTE=origin
-REPO=$(git config --local --get remote.${REMOTE}.url)
-REPO=${REPO/:/\/}
-REPO=${REPO/git@/"https://"}
-REPO=${REPO%\.git}
-
+. "$(dirname $0)/_git-remote.sh"
+REPO="$(_github_repo)"
 BRANCH=$(git symbolic-ref HEAD --short)
 
 x-www-browser "${REPO}/compare/${BRANCH}?expand=1"
