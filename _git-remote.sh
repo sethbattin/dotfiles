@@ -10,5 +10,5 @@ _github_repo () {
   REPO=${REPO%\.git}
 
   echo "${REPO}"
-  0
+  result=0
 }
