@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# browser-open the current repo
+. "$(dirname $0)/_git-remote.sh"
+x-www-browser "$(_github_repo)"
