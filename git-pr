@@ -4,8 +4,6 @@
 # assumes github-style URL for creating a PR.
 . "$(dirname $0)/_git-remote.sh"
 REPO="$(_github_repo)"
-
-_github_repo
 BRANCH=$(git symbolic-ref HEAD --short)
 
 x-www-browser "${REPO}/compare/${BRANCH}?expand=1"
