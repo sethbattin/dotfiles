@@ -1,0 +1,43 @@
+
+# $SECONDS is taken 
+_SECONDS=300
+MESSAGE="Complete!"
+
+# TODO: parse minutes by default & M:S format
+# TODO: print the timer large 7-segment or 16-segment
+# TODO: add quick survey about successfulness of the pomodoro unit
+# DONE: research sleep to avoid running in a constant loop - reduces load via Microsoft defender (wtf?)
+# TODO: log topics to planner....database? sub-todo create a planner database
+# TODO: getopts (or getopt) to set time and message and other stuff e.g. format
+# TODO: modify to allow running in the background
+
+
+if [ "$#" -gt "0" ]; then _SECONDS="$1"; shift; fi
+
+if [ "$#" -gt "0" ]; then MESSAGE="$@"; fi
+
+end_time=$(( $(date +%s) + $_SECONDS ))
+
+diff=0
+function set_diff() {
+  diff="$(( $end_time - $(date +%s) ))"
+}
+set_diff
+
+function timer_string(){
+  current_time="$1"
+  date -u --date @$(( $end_time - $current_time )) +%H:%M:%S 
+}
+
+tput clear
+while [ $diff -gt "-1" ]; do
+  current_timer=$( timer_string $(date +%s) )
+  echo -ne "$current_timer \r"
+  sleep 0.5 # take it easy on the machine
+  set_diff
+done
+
+COLOR_RED=9
+tput bel; sleep 1.5; tput bel; sleep 1.5; tput bel;
+printf "%s%s%s - %s\n" "$(tput bold)$(tput setaf $COLOR_RED)$(tput rev)" "$( timer_string $end_time )" "$(tput sgr0)" "$MESSAGE"
+
