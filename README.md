@@ -21,4 +21,4 @@ A little timer thing that helps me try to apply [pomodoro].
 
 ## TODO
 
- -[ ] add vim settings 
+ - [ ] add vim settings 
