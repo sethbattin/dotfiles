@@ -21,4 +21,5 @@ A little timer thing that helps me try to apply [pomodoro].
 
 ## TODO
 
- - [ ] add vim settings 
+ - [ ] add vim settings
+ - [ ] add a thing to check for dotfiles updates
