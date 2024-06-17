@@ -1,0 +1,18 @@
+# git-backdate: create commits with dates older that `date` (older than NOW)
+#
+# TODO: 
+# - use getopt for hours, etc
+# - output the date before using it
+
+days=$1
+shift 1
+phrase="$days days ago"
+if [ "$days" = "--phrase" ]; then
+    phrase="$1"
+    shift
+fi
+
+# juggle date ENV to make old commits; take all other inputs as git-commit args
+GIT_AUTHOR_DATE=$( date -d"$phrase" ) \
+GIT_COMMITER_DATE="$GIT_AUTHOR_DATE" \
+git commit "$@"
